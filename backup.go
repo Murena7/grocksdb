@@ -52,6 +52,14 @@ func OpenBackupEngineWithOpt(opts *BackupableDBOptions, env *Env) (be *BackupEng
 }
 
 // CreateBackupEngine opens a backup engine from DB.
+func CreateBackupEngineWithOpt(db *DB, opts *BackupableDBOptions, env *Env) (be *BackupEngine, err error) {
+	if be, err = OpenBackupEngineWithOpt(opts, env); err == nil {
+		be.db = db
+	}
+	return
+}
+
+// CreateBackupEngine opens a backup engine from DB.
 func CreateBackupEngine(db *DB) (be *BackupEngine, err error) {
 	if be, err = OpenBackupEngine(db.opts, db.Name()); err == nil {
 		be.db = db
